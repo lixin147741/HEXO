@@ -11,6 +11,8 @@ tags:
 - 并发队列(Concurrent Dispatch Queue）
 一次可以执行多个线程，线程的执行没有先后顺序
 
+<!--more-->
+
 ### dispatch_queue_create
 
 那么如何创建Dispatch Queue呢，一共有两种方式。
