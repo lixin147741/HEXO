@@ -19,4 +19,20 @@ tags:
 响应式函数编程的编程思想跟之前的有很大的不同，我们之前理解的编程都是基于数据的，数据是不变的，我们通过编程来操作数据，我们要随时记录这数据的状态。而响应式函数编程的核心思路是面向流的，数据是变化的，形象的来说我们通过来构建一个**管道**来让数据流通过，我们不需要记录数据的状态。
 
 
+
+RACSignal有两种状态，cold跟hot状态，通俗的说就是休眠跟激活状态。一般情况下一个RACSignal创建出来都是休眠状态，有人去订阅（subscribe）才会被激活。
+
+RACSignal能且只能产生三种事件， next， complete， error
+
+- next表示这个Signal产生了一个值
+- completed表示Signal结束，结束信号只标志成功结束，不带值
+- error表示Signal中出现错误，立刻结束
+
+有很多Operation，可以参考https://github.com/ReactiveCocoa/ReactiveCocoa/blob/master/Documentation/BasicOperators.md#filtering
+
+
+
+
+
+
 明天在学一学，多看一些资料再来写
