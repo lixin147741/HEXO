@@ -32,6 +32,41 @@ RACSignal能且只能产生三种事件， next， complete， error
 
 
 
+Reactive cocoa使用信号来代表一系列异步事件，提供了一种统一的方式来处理所有异步的行为，包括代理方法、`block` 回调、`target-action` 机制、通知、`KVO` 等。
+
+``` objective-c
+// 代理方法
+[[self
+    rac_signalForSelector:@selector(webViewDidStartLoad:)
+    fromProtocol:@protocol(UIWebViewDelegate)]
+    subscribeNext:^(id x) {
+        // 实现 webViewDidStartLoad: 代理方法
+    }];
+
+// target-action
+[[self.avatarButton
+    rac_signalForControlEvents:UIControlEventTouchUpInside]
+    subscribeNext:^(UIButton *avatarButton) {
+        // avatarButton 被点击了
+    }];
+
+// 通知
+[[[NSNotificationCenter defaultCenter]
+    rac_addObserverForName:kReachabilityChangedNotification object:nil]
+    subscribeNext:^(NSNotification *notification) {
+        // 收到 kReachabilityChangedNotification 通知
+    }];
+
+// KVO
+[RACObserve(self, username) subscribeNext:^(NSString *username) {
+    // 用户名发生了变化
+}];
+
+```
+
+
+
+
 
 
 
