@@ -61,12 +61,46 @@ Reactive cocoa使用信号来代表一系列异步事件，提供了一种统一
 [RACObserve(self, username) subscribeNext:^(NSString *username) {
     // 用户名发生了变化
 }];
-
 ```
 
 
 
 
+
+
+
+之前以为冷信号跟热信号的区别是当一个`RACSignal` 没被订阅的时候他就是冷信号，被订阅了之后就是热信号，今天突然发现不是这样。
+
+> 1、热信号是主动的，尽管你没有订阅事件，他依然会时刻推送。冷信号是被动的，只有被订阅的时候才会发送事件。
+> 
+> 2、热信号可以有多个订阅者，是一对多。冷信号只能是一对一，当有不同的订阅者，消息会**重新完整**的发送。
+
+**任何对信号的转换都是对原有信号的订阅从而产生新的信号**
+
+由此可以产生一个推论，当我们生成一个网络请求的冷信号的时候，在对这个信号进行多次转换，就相当于多次订阅了这个信号，从而就会导致同一个网络请求发送很多次，这是一个很严重的问题。
+
+所以分清楚冷信号跟热信号并且用在正确的地方是很重要的。
+
+先说结论
+
+> `RACSubject` 及其子类是热信号
+> 
+> `RACSignal` 排除 `RACSubject` 以外的类都是冷信号
+
+
+
+冷信号转热信号的方法有以下几种：
+
+
+
+``` objective-c
+- (RACMulticastConnection *)publish;
+- (RACMulticastConnection *)multicast:(RACSignal *)subject;
+- (RACSignal *)replay;
+- (RACSignal *)replayLast;
+- (RACSignal *)replayLizily;
+
+```
 
 
 
