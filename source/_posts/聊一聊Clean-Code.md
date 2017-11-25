@@ -6,7 +6,6 @@ tags: Clean Code
 
 最近看了本书《Clean Code》，在结合之前看的《The art of readable code》聊一聊对Clean Code的看法。
 
-<!--more-->
 
 ### 我的经历
 开始写代码的时候根本没有Clean Code的概念，把所有的变量和所有的方法堆在一起，代码无比丑陋。
